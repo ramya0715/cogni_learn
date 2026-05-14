@@ -1,0 +1,155 @@
+// Version: 1.0.0
+type CognitiveLoadEntry__472585343 =
+  {
+    accuracy : Float;
+    avgTimePerQuestion : Float;
+    category : Text;
+    confidenceLevel : Nat;
+    entryId : Text;
+    errorCount : Nat;
+    loadScore : Float;
+    stressLevel : Nat;
+    timestamp : Int;
+    userId : UserId__40541812
+  };
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type LearningProgress__267228105 =
+  {
+    completedTopics : [Text];
+    lastAccessDate : Int;
+    lastStreakDate : Int;
+    progressPercentage : Float;
+    studyStreak : Nat;
+    subject : Text;
+    userId : UserId__133000301
+  };
+type MockInterviewQuestion__116540819 =
+  {
+    category : Text;
+    difficulty : Text;
+    keyPoints : [Text];
+    mode : Text;
+    question : Text;
+    questionId : Text
+  };
+type MockInterviewSession__102139439 =
+  {
+    answers : [(Text, Text)];
+    mode : Text;
+    score : Nat;
+    sessionId : Text;
+    startTime : Int;
+    userId : UserId__683795782
+  };
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type QuizQuestion__692474474 =
+  {
+    correctAnswer : Text;
+    difficulty : Text;
+    explanation : Text;
+    optionA : Text;
+    optionB : Text;
+    optionC : Text;
+    optionD : Text;
+    questionId : Text;
+    questionText : Text;
+    subject : Text;
+    topicTag : Text
+  };
+type QuizSession__264911142 =
+  {
+    accuracy : Float;
+    answers : [(Text, Text)];
+    difficulty : Text;
+    endTime : Int;
+    score : Nat;
+    sessionId : Text;
+    startTime : Int;
+    subject : Text;
+    timePerQuestion : [Float];
+    userId : UserId__363132630
+  };
+type Recommendation__665920671 =
+  {
+    createdAt : Int;
+    reason : Text;
+    recId : Text;
+    recType : Text;
+    targetSubject : Text;
+    targetTopic : Text;
+    userId : UserId__141337401
+  };
+type UserId__133000301 = UserId__158757552;
+type UserId__141337401 = UserId__158757552;
+type UserId__158757552 = Principal;
+type UserId__315772724 = UserId__158757552;
+type UserId__363132630 = UserId__158757552;
+type UserId__40541812 = UserId__158757552;
+type UserId__683795782 = UserId__158757552;
+type UserProfile__1009003526 =
+  {
+    cognitiveLoadBaseline : Float;
+    email : Text;
+    id : UserId__315772724;
+    joinDate : Int;
+    name : Text;
+    notificationsEnabled : Bool;
+    preferredDifficulty : Text;
+    studyGoalHours : Nat;
+    themePreference : Text
+  };
+actor {
+  stable cognitiveEntries :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?CognitiveLoadEntry__472585343]];
+      var elementIndex : Nat__490723111
+    };
+  stable interviewQuestions :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?MockInterviewQuestion__116540819]];
+      var elementIndex : Nat__490723111
+    };
+  stable interviewSessions :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?MockInterviewSession__102139439]];
+      var elementIndex : Nat__490723111
+    };
+  stable progressMap :
+    {
+      var root : Node__46230540<Text, LearningProgress__267228105>;
+      var size : Nat__490723111
+    };
+  stable quizQuestions :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?QuizQuestion__692474474]];
+      var elementIndex : Nat__490723111
+    };
+  stable quizSessions :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?QuizSession__264911142]];
+      var elementIndex : Nat__490723111
+    };
+  stable recommendations :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Recommendation__665920671]];
+      var elementIndex : Nat__490723111
+    };
+  stable users :
+    {
+      var root : Node__46230540<UserId__158757552, UserProfile__1009003526>;
+      var size : Nat__490723111
+    }
+};

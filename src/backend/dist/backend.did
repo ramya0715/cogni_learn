@@ -1,0 +1,257 @@
+type UserProfile = 
+ record {
+   cognitiveLoadBaseline: float64;
+   email: text;
+   id: UserId;
+   joinDate: int;
+   name: text;
+   notificationsEnabled: bool;
+   preferredDifficulty: text;
+   studyGoalHours: nat;
+   themePreference: text;
+ };
+type UserId = principal;
+type Result_9 = 
+ variant {
+   err: text;
+   ok: DashboardData;
+ };
+type Result_8 = 
+ variant {
+   err: text;
+   ok: vec MockInterviewQuestion;
+ };
+type Result_7 = 
+ variant {
+   err: text;
+   ok: vec QuizSession;
+ };
+type Result_6 = 
+ variant {
+   err: text;
+   ok: vec QuizQuestion;
+ };
+type Result_5 = 
+ variant {
+   err: text;
+   ok: vec Recommendation;
+ };
+type Result_4 = 
+ variant {
+   err: text;
+   ok: text;
+ };
+type Result_3 = 
+ variant {
+   err: text;
+   ok: MockInterviewResult;
+ };
+type Result_2 = 
+ variant {
+   err: text;
+   ok: QuizResultSummary;
+ };
+type Result_11 = 
+ variant {
+   err: text;
+   ok: CognitiveLoadEntry;
+ };
+type Result_10 = 
+ variant {
+   err: text;
+   ok: AnalyticsSummary;
+ };
+type Result_1 = 
+ variant {
+   err: text;
+   ok: LearningProgress;
+ };
+type Result = 
+ variant {
+   err: text;
+   ok: UserProfile;
+ };
+type Recommendation = 
+ record {
+   createdAt: int;
+   reason: text;
+   recId: text;
+   recType: text;
+   targetSubject: text;
+   targetTopic: text;
+   userId: UserId;
+ };
+type QuizSession = 
+ record {
+   accuracy: float64;
+   answers: vec record {
+                  text;
+                  text;
+                };
+   difficulty: text;
+   endTime: int;
+   score: nat;
+   sessionId: text;
+   startTime: int;
+   subject: text;
+   timePerQuestion: vec float64;
+   userId: UserId;
+ };
+type QuizResultSummary = 
+ record {
+   accuracy: float64;
+   cognitiveLoadCategory: text;
+   recommendations: vec text;
+   score: nat;
+   strongTopics: vec text;
+   timeTaken: float64;
+   totalQuestions: nat;
+   weakTopics: vec text;
+ };
+type QuizQuestion = 
+ record {
+   correctAnswer: text;
+   difficulty: text;
+   explanation: text;
+   optionA: text;
+   optionB: text;
+   optionC: text;
+   optionD: text;
+   questionId: text;
+   questionText: text;
+   subject: text;
+   topicTag: text;
+ };
+type MockInterviewResult = 
+ record {
+   categoryBreakdown: vec record {
+                            text;
+                            float64;
+                          };
+   improvements: vec text;
+   performanceFeedback: text;
+   score: nat;
+   strengths: vec text;
+   totalQuestions: nat;
+ };
+type MockInterviewQuestion = 
+ record {
+   category: text;
+   difficulty: text;
+   keyPoints: vec text;
+   mode: text;
+   question: text;
+   questionId: text;
+ };
+type LearningProgress = 
+ record {
+   completedTopics: vec text;
+   lastAccessDate: int;
+   lastStreakDate: int;
+   progressPercentage: float64;
+   studyStreak: nat;
+   subject: text;
+   userId: UserId;
+ };
+type DashboardData = 
+ record {
+   currentCognitiveLoad: CognitiveLoadEntry;
+   learningProgressAll:
+    vec
+     record {
+       completedTopics: vec text;
+       lastAccessDate: int;
+       lastStreakDate: int;
+       progressPercentage: float64;
+       studyStreak: nat;
+       subject: text;
+       userId: UserId;
+     };
+   profile:
+    record {
+      cognitiveLoadBaseline: float64;
+      email: text;
+      id: UserId;
+      joinDate: int;
+      name: text;
+      notificationsEnabled: bool;
+      preferredDifficulty: text;
+      studyGoalHours: nat;
+      themePreference: text;
+    };
+   recentQuizSessions:
+    vec
+     record {
+       accuracy: float64;
+       answers: vec record {
+                      text;
+                      text;
+                    };
+       difficulty: text;
+       endTime: int;
+       score: nat;
+       sessionId: text;
+       startTime: int;
+       subject: text;
+       timePerQuestion: vec float64;
+       userId: UserId;
+     };
+   recommendations: vec Recommendation;
+   streakDays: nat;
+   weeklyStudySessions: vec nat;
+ };
+type CognitiveLoadEntry = 
+ record {
+   accuracy: float64;
+   avgTimePerQuestion: float64;
+   category: text;
+   confidenceLevel: nat;
+   entryId: text;
+   errorCount: nat;
+   loadScore: float64;
+   stressLevel: nat;
+   timestamp: int;
+   userId: UserId;
+ };
+type AnalyticsSummary = 
+ record {
+   cognitiveLoadTrend: vec CognitiveLoadEntry;
+   overallAccuracy: float64;
+   subjectAccuracy: vec record {
+                          text;
+                          float64;
+                        };
+   totalCorrect: nat;
+   totalQuestions: nat;
+   totalQuizzes: nat;
+   userId: UserId;
+   weeklyStudyDays: vec nat;
+ };
+service : {
+  calculateCognitiveLoad: (accuracy: float64, avgTimeSecs: float64,
+   errorCount: nat, stressLevel: nat, confidenceLevel: nat, retryCount: 
+   nat, sessionDurationMins: float64, topicDifficulty: text) -> (Result_11);
+  getAnalytics: (daysBack: nat) -> (Result_10) query;
+  getDashboardData: () -> (Result_9) query;
+  getLearningProgress: (subject: text) -> (Result_1) query;
+  getMockInterviewQuestions: (mode: text) -> (Result_8) query;
+  getQuizHistory: () -> (Result_7) query;
+  getQuizQuestions: (subject: text, difficulty: text) -> (Result_6) query;
+  getRecommendations: () -> (Result_5) query;
+  getUserProfile: () -> (Result) query;
+  registerUser: (name: text, email: text) -> (Result);
+  seedQuizData: () -> (Result_4);
+  submitMockInterview: (mode: text, answers: vec record {
+                                                   text;
+                                                   text;
+                                                 }) -> (Result_3);
+  submitQuizSession: (subject: text, difficulty: text, answers:
+   vec record {
+         text;
+         text;
+       }, timePerQuestion: vec float64, stressLevel: nat, confidenceLevel:
+   nat, sessionDurationSecs: nat) -> (Result_2);
+  updateLearningProgress: (subject: text, completedTopic: text) -> (Result_1);
+  updateUserProfile: (name: text, email: text, studyGoal: nat, difficulty:
+   text, theme: text, notifications: bool) -> (Result);
+}

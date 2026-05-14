@@ -1,0 +1,27 @@
+{
+  "overview": "Cognitive Load Aware Learning System — a full-stack platform that helps college students prepare for job placements using adaptive learning. The system tracks cognitive load in real time and adjusts quiz difficulty and content to match each student's learning state.",
+  "features": [
+    "Internet Identity authentication with session persistence",
+    "250 real placement-oriented quiz questions (50 per subject)",
+    "Real cognitive load engine using weighted performance metrics",
+    "Adaptive quiz difficulty based on Low/Moderate/High cognitive load",
+    "Dashboard with progress tracking, daily streak, and Recharts analytics",
+    "5 learning modules: Aptitude, DBMS, OOPS, System Design, Technical MCQs",
+    "Timed 50-question quiz sessions with auto-submit and result analysis",
+    "Analytics page with cognitive load trends, subject accuracy, and recommendations",
+    "Mock interview module with Technical and HR question modes",
+    "Glassmorphism UI with dark/light mode and responsive design"
+  ],
+  "category": "education",
+  "tags": [
+    "education",
+    "placement-prep",
+    "adaptive-learning",
+    "cognitive-load",
+    "quiz",
+    "analytics",
+    "dashboard",
+    "students"
+  ],
+  "last_updated": "2026-05-13T15:45:13.462Z"
+}
